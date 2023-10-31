@@ -83,6 +83,7 @@ export default function AdminForm({ isUpdateForm = false }) {
           <Select.Option value="admin">Admin (Super Admin)</Select.Option>
           <Select.Option value="staffAdmin">Staff Admin (Create,Read,Update,Delete)</Select.Option>
           <Select.Option value="staff">Staff (Create,Read,Update)</Select.Option>
+          <Select.Option value="elaborator">Elaborator</Select.Option>
           <Select.Option value="createOnly">Create and Read Only</Select.Option>
           <Select.Option value="readOnly">Read Only</Select.Option>
         </Select>
