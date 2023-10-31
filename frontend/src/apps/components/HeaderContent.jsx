@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, Dropdown, Layout } from 'antd';
 
 // import Notifications from '@/components/Notification';
 
-import { SettingOutlined, LogoutOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import { checkImage } from '@/request';
 
 import { selectCurrentAdmin } from '@/redux/auth/selectors';
-
+import { translateAction } from '@/redux/translate/actions';
 import { useNavigate } from 'react-router-dom';
 
 import { BASE_URL } from '@/config/serverApiConfig';
@@ -22,22 +21,13 @@ export default function HeaderContent() {
   const currentAdmin = useSelector(selectCurrentAdmin);
   const { Header } = Layout;
 
+  const dispatch = useDispatch();
+
   const translate = useLanguage();
 
-  const [hasPhotoprofile, setHasPhotoprofile] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await checkImage(BASE_URL + currentAdmin?.photo);
-      setHasPhotoprofile(result);
-    }
-    fetchData();
-    return () => {
-      return false;
-    };
-  }, []);
-
-  const srcImgProfile = hasPhotoprofile ? BASE_URL + currentAdmin?.photo : null;
+  const srcImgProfile = checkImage(BASE_URL + currentAdmin?.photo)
+    ? BASE_URL + currentAdmin?.photo
+    : null;
 
   const ProfileDropdown = () => {
     const navigate = useNavigate();
@@ -47,7 +37,7 @@ export default function HeaderContent() {
           size="large"
           className="last"
           src={srcImgProfile}
-          style={{ color: '#f56a00', backgroundColor: !hasPhotoprofile ? '#fde3cf' : '#f9fafc' }}
+          style={{ color: '#f56a00', backgroundColor: !srcImgProfile ? '#fde3cf' : 'none' }}
         >
           {currentAdmin?.name.charAt(0).toUpperCase()}
         </Avatar>
@@ -123,7 +113,7 @@ export default function HeaderContent() {
           src={srcImgProfile}
           style={{
             color: '#f56a00',
-            backgroundColor: !hasPhotoprofile ? '#fde3cf' : '#f9fafc',
+            backgroundColor: !srcImgProfile ? '#fde3cf' : 'none',
             float: 'right',
           }}
           size="large"

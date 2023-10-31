@@ -70,6 +70,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
 
       <Form.Item
         label={translate('Phone')}
+        name="phone"
         rules={[
           {
             required: true,
