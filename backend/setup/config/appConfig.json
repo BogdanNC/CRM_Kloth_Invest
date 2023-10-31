@@ -2,7 +2,7 @@
   {
     "settingCategory": "app_settings",
     "settingKey": "app_name",
-    "settingValue": "IDURAR ERP/CRM",
+    "settingValue": "CRM",
     "valueType": "string",
     "isCoreSetting": true
   },
